@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dice from "./icon-dice.svg";
 
 function App() {
@@ -15,6 +15,9 @@ function App() {
     setNumber(data.slip.id);
     setText(data.slip.advice);
   };
+  useEffect(() => {
+    advice();
+  }, []);
 
   return (
     <div className="app">
