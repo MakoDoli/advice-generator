@@ -1,24 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import dice from "./icon-dice.svg";
 
 function App() {
+  const [number, setNumber] = useState<number | null>(null);
+  const [text, setText] = useState<string>("");
+
+  const url = "https://api.adviceslip.com/advice";
+
+  const advice = async function () {
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data);
+    setNumber(data.slip.id);
+    setText(data.slip.advice);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <div className="container">
+        <h1>ADVICE #{number} </h1>
+        <p>"{text}"</p>
+        <div className="border-line">
+          <div className="line"></div>
+          <div className="quote"></div>
+          <div className="quote"></div>
+          <div className="line"></div>
+        </div>
+        <div className="dice" onClick={advice}>
+          <img src={dice} alt="dice"></img>
+        </div>
+      </div>
     </div>
   );
 }
