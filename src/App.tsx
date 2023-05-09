@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import dice from "./icon-dice.svg";
 
 function App() {
-  const [number, setNumber] = useState<number | null>(null);
+  const [number, setNumber] = useState<number>(0);
   const [text, setText] = useState<string>("");
 
   const url = "https://api.adviceslip.com/advice";
@@ -11,7 +11,7 @@ function App() {
   const advice = async function () {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+
     setNumber(data.slip.id);
     setText(data.slip.advice);
   };
